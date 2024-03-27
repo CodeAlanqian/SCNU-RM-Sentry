@@ -36,7 +36,7 @@ def generate_launch_description():
     pointcloud_downsampling_config_dir = os.path.join(bringup_dir, 'config', 'pointcloud_downsampling.yaml')
 
     ####################### Livox_ros_driver2 parameters start #######################
-    xfer_format   = 4    # 0-Pointcloud2(PointXYZRTL), 1-customized pointcloud format
+    xfer_format   = 4    # 0-Pointcloud2(PointXYZRTL), 1-customized pointcloud format, 4-both 0 and 1
     multi_topic   = 0    # 0-All LiDARs share the same topic, 1-One LiDAR one topic
     data_src      = 0    # 0-lidar, others-Invalid data src
     publish_freq  = 10.0 # freqency of publish, 5.0, 10.0, 20.0, 50.0, etc.
@@ -45,9 +45,10 @@ def generate_launch_description():
     lvx_file_path = '/home/livox/livox_test.lvx'
     cmdline_bd_code = 'livox0000000001'
 
-    cur_path = os.path.split(os.path.realpath(__file__))[0] + '/'
-    cur_config_path = cur_path + '../config'
-    user_config_path = os.path.join(cur_config_path, 'MID360_config.json')
+    # cur_path = os.path.split(os.path.realpath(__file__))[0] + '/'
+    # cur_config_path = cur_path + '../config'
+    # user_config_path = os.path.join(cur_config_path, 'MID360_config.json')
+    user_config_path = os.path.join(bringup_dir, 'config', 'MID360_config.json')
 
     livox_ros2_params = [
         {"xfer_format": xfer_format},
@@ -96,6 +97,8 @@ def generate_launch_description():
         parameters=livox_ros2_params
     )
 
+    # robot_description publisher
+    # TODO : change my robot description
     start_robot_description = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(pb_rm_simulation_launch_dir, 'rm_real.launch.py')),
         launch_arguments={'rviz': use_rviz}.items()

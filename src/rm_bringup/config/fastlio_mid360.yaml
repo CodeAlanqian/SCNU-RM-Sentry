@@ -42,4 +42,4 @@
 
         traj_save:
             traj_save_en: false
-            traj_file_path: "src/rm_localization/FAST_LIO/traj/RMUL.txt" # when you use docker, you should enter the absolute path of in docker container
+            traj_file_path: "src/rm_localization/FAST_LIO/traj/test1.txt" # when you use docker, you should enter the absolute path of in docker container

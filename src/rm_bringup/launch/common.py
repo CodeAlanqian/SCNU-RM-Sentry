@@ -35,6 +35,7 @@ def generate_launch_description():
     use_rviz = LaunchConfiguration('rviz', default='true') # bool
     ################################### FAST_LIO parameters end ###################################
     
+    # imu互补滤波，如果很吃cpu，可以考虑关闭
     bringup_imu_complementary_filter_group = Node(
         package='imu_complementary_filter',
         executable='complementary_filter_node',
@@ -52,6 +53,7 @@ def generate_launch_description():
         ]
     )
 
+    # FAST_LIO里程计
     bringup_FAST_LIO_group = GroupAction([
         Node(
             package='fast_lio',
@@ -78,6 +80,7 @@ def generate_launch_description():
         )
     ])
     
+    # 地面分割
     bringup_linefit_ground_segmentation_group = Node(
         package='linefit_ground_segmentation_ros',
         executable='ground_segmentation_node',
@@ -85,6 +88,7 @@ def generate_launch_description():
         parameters=[segmentation_params]
     )
 
+    # 点云转激光雷达
     bringup_pointcloud_to_laserscan_group = Node(
         package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
         remappings=[('cloud_in',  ['/segmentation/obstacle']),
